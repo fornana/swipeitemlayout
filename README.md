@@ -1,7 +1,11 @@
 # swipeitemlayout
 非常轻量级的RecyclerView左滑菜单选项控件。
+
 使用很简单，只需要一个类文件即可。将SwipeItemLayout拷贝到项目下即可使用。
-以QQ的左滑为参考设计的，与SwipeRefreshLayout无冲突。使用方法如下：
+
+以QQ的左滑为参考设计的，与SwipeRefreshLayout无冲突。
+
+使用方法如下：
   1、recyclerView.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this));
   2、item layout文件
     以SwipeItemLayout为item的root view，添加两个group，第一个为main部分，即显示在中心，第二个为menu部分，即显示在右侧
