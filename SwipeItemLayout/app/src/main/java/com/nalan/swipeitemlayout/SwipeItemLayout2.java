@@ -19,7 +19,7 @@ import android.widget.Scroller;
  * Date：    2017/2/16.
  */
 
-public class SwipeItemLayout extends ViewGroup {
+public class SwipeItemLayout2 extends ViewGroup {
     enum Mode{
         RESET,DRAG,FLING,TAP
     }
@@ -34,11 +34,11 @@ public class SwipeItemLayout extends ViewGroup {
 
     private boolean mInLayout;
 
-    public SwipeItemLayout(Context context) {
+    public SwipeItemLayout2(Context context) {
         this(context,null);
     }
 
-    public SwipeItemLayout(Context context, AttributeSet attrs) {
+    public SwipeItemLayout2(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         mTouchMode = Mode.RESET;
@@ -357,7 +357,7 @@ public class SwipeItemLayout extends ViewGroup {
                 mAbort = false;
                 mScrollToLeft = endX<startX;
                 mScroller.startScroll(startX,0,endX-startX,0, 400);
-                ViewCompat.postOnAnimation(SwipeItemLayout.this,this);
+                ViewCompat.postOnAnimation(SwipeItemLayout2.this,this);
             }
         }
 
@@ -402,7 +402,7 @@ public class SwipeItemLayout extends ViewGroup {
 
                 boolean atEdge = trackMotionScroll(curX-mScrollOffset);
                 if(more && !atEdge) {
-                    ViewCompat.postOnAnimation(SwipeItemLayout.this, this);
+                    ViewCompat.postOnAnimation(SwipeItemLayout2.this, this);
                     return;
                 }
 
@@ -421,7 +421,7 @@ public class SwipeItemLayout extends ViewGroup {
                             mScrollOffset = -mMaxScrollOffset;
                         else
                             mScrollOffset = 0;
-                        ViewCompat.postOnAnimation(SwipeItemLayout.this,this);
+                        ViewCompat.postOnAnimation(SwipeItemLayout2.this,this);
                     }
                 }
             }
@@ -429,7 +429,7 @@ public class SwipeItemLayout extends ViewGroup {
     }
 
     public static class OnSwipeItemTouchListener implements RecyclerView.OnItemTouchListener {
-        private SwipeItemLayout mCaptureItem;
+        private SwipeItemLayout2 mCaptureItem;
         private float mLastMotionX;
         private float mLastMotionY;
         private VelocityTracker mVelocityTracker;
@@ -440,7 +440,6 @@ public class SwipeItemLayout extends ViewGroup {
         private int mMaximumVelocity;
 
         private boolean mDealByParent;
-        private boolean mIsProbeParent;
 
         public OnSwipeItemTouchListener(Context context){
             ViewConfiguration configuration = ViewConfiguration.get(context);
@@ -448,14 +447,10 @@ public class SwipeItemLayout extends ViewGroup {
             mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
             mActivePointerId = -1;
             mDealByParent = false;
-            mIsProbeParent = false;
         }
 
         @Override
         public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent ev) {
-            if(mIsProbeParent)
-                return false;
-
             boolean intercept = false;
             final int action = ev.getActionMasked();
 
@@ -473,14 +468,14 @@ public class SwipeItemLayout extends ViewGroup {
                     mLastMotionY = y;
 
                     boolean pointOther = false;
-                    SwipeItemLayout pointItem = null;
+                    SwipeItemLayout2 pointItem = null;
                     //首先知道ev针对的是哪个item
                     View pointView = findTopChildUnder(rv,(int)x,(int)y);
-                    if(pointView==null || !(pointView instanceof SwipeItemLayout)){
+                    if(pointView==null || !(pointView instanceof SwipeItemLayout2)){
                         //可能是head view或bottom view
                         pointOther = true;
                     }else
-                        pointItem = (SwipeItemLayout) pointView;
+                        pointItem = (SwipeItemLayout2) pointView;
 
                     //此时的pointOther=true，意味着点击的view为空或者点击的不是item
                     //还没有把点击的是item但是不是capture item给过滤出来
@@ -521,13 +516,6 @@ public class SwipeItemLayout extends ViewGroup {
                             mCaptureItem.setTouchMode(Mode.TAP);
                         }
                     }
-
-                    //如果parent处于fling状态，此时，parent就会转为drag。此时，应该将后续move都交给parent处理
-                    mIsProbeParent = true;
-                    mDealByParent = rv.onInterceptTouchEvent(ev);
-                    mIsProbeParent = false;
-                    if(mDealByParent)
-                        intercept = false;
                     break;
                 }
 
@@ -589,18 +577,13 @@ public class SwipeItemLayout extends ViewGroup {
                                 parent.requestDisallowInterceptTouchEvent(true);
 
                                 deltaX = deltaX>0 ? deltaX-mTouchSlop:deltaX+mTouchSlop;
-                            }else{// if(yDiff>mTouchSlop){
-                                mIsProbeParent = true;
-                                boolean isParentConsume = rv.onInterceptTouchEvent(ev);
-                                mIsProbeParent = false;
-                                if(isParentConsume){
-                                    //表明不是水平滑动，即不判定为SwipeItemLayout的滑动
-                                    //但是，可能是下拉刷新SwipeRefreshLayout或者RecyclerView的滑动
-                                    //一般的下拉判定，都是yDiff>mTouchSlop，所以，此处这么写不会出问题
-                                    //这里这么做以后，如果判定为下拉，就直接close
-                                    mDealByParent = true;
-                                    mCaptureItem.close();
-                                }
+                            }else if(yDiff>mTouchSlop){
+                                //表明不是水平滑动，即不判定为SwipeItemLayout的滑动
+                                //但是，可能是下拉刷新SwipeRefreshLayout或者RecyclerView的滑动
+                                //一般的下拉判定，都是yDiff>mTouchSlop，所以，此处这么写不会出问题
+                                //这里这么做以后，如果判定为下拉，就直接close
+                                mDealByParent = true;
+                                mCaptureItem.close();
                             }
                         }
 
@@ -682,7 +665,7 @@ public class SwipeItemLayout extends ViewGroup {
 
                     int deltaX = (int) (x - mLastMotionX);
 
-                    if(mCaptureItem!=null && mCaptureItem.getTouchMode()==Mode.DRAG){
+                    if(mCaptureItem!=null && mCaptureItem.getTouchMode()== Mode.DRAG){
                         mLastMotionX = x;
                         mLastMotionY = y;
 
@@ -744,8 +727,8 @@ public class SwipeItemLayout extends ViewGroup {
     public static void closeAllItems(RecyclerView recyclerView){
         for(int i=0;i<recyclerView.getChildCount();i++){
             View child = recyclerView.getChildAt(i);
-            if(child instanceof SwipeItemLayout){
-                SwipeItemLayout swipeItemLayout = (SwipeItemLayout) child;
+            if(child instanceof SwipeItemLayout2){
+                SwipeItemLayout2 swipeItemLayout = (SwipeItemLayout2) child;
                 if(swipeItemLayout.isOpen())
                     swipeItemLayout.close();
             }

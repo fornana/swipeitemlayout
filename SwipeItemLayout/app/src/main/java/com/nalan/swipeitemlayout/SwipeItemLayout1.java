@@ -31,7 +31,7 @@ import android.widget.Scroller;
     详细见SlidingItemLayout
  */
 //左滑，分为main与side
-public class SwipeItemLayoutOld extends ViewGroup{
+public class SwipeItemLayout1 extends ViewGroup{
     private static final int MIN_FLING_VELOCITY = 400; // dips per second
     private static final float TOUCH_SLOP_SENSITIVITY = 1.f;
 
@@ -50,11 +50,11 @@ public class SwipeItemLayoutOld extends ViewGroup{
 
     private boolean mInLayout;
 
-    public SwipeItemLayoutOld(Context context) {
+    public SwipeItemLayout1(Context context) {
         this(context,null);
     }
 
-    public SwipeItemLayoutOld(Context context, AttributeSet attrs) {
+    public SwipeItemLayout1(Context context, AttributeSet attrs) {
         super(context, attrs);
 
 //        mState = State.RESET;
@@ -328,7 +328,7 @@ public class SwipeItemLayoutOld extends ViewGroup{
 
             mScroller.startScroll(startX,0,dx,0);
             mRunning = true;
-            ViewCompat.postOnAnimation(SwipeItemLayoutOld.this,this);
+            ViewCompat.postOnAnimation(SwipeItemLayout1.this,this);
         }
 
         boolean isRunning(){
@@ -343,7 +343,7 @@ public class SwipeItemLayoutOld extends ViewGroup{
                 int dx = x-mMainView.getLeft();
                 ViewCompat.offsetLeftAndRight(mMainView,dx);
                 ViewCompat.offsetLeftAndRight(mSideView,dx);
-                ViewCompat.postOnAnimation(SwipeItemLayoutOld.this, this);
+                ViewCompat.postOnAnimation(SwipeItemLayout1.this, this);
             }else{
                 mRunning = false;
                 removeCallbacks(this);
@@ -454,11 +454,11 @@ public class SwipeItemLayoutOld extends ViewGroup{
 
                 //当前是否有expand的
                 boolean hasExpand = false;
-                SwipeItemLayoutOld expandChild = null;
-                SwipeItemLayoutOld captureChild = null;
+                SwipeItemLayout1 expandChild = null;
+                SwipeItemLayout1 captureChild = null;
 
                 for(int i=0;i<mRecyclerView.getChildCount();i++){
-                    SwipeItemLayoutOld child = (SwipeItemLayoutOld) mRecyclerView.getChildAt(i);
+                    SwipeItemLayout1 child = (SwipeItemLayout1) mRecyclerView.getChildAt(i);
                     if(child.isExpand()) {
                         hasExpand = true;
                         expandChild = child;
@@ -481,7 +481,7 @@ public class SwipeItemLayoutOld extends ViewGroup{
                 if (ady > mTouchSlop && ady>adx && !mIsMove) {
                     mIsMove = true;
                     for(int i=0;i<mRecyclerView.getChildCount();i++){
-                        SwipeItemLayoutOld child = (SwipeItemLayoutOld) mRecyclerView.getChildAt(i);
+                        SwipeItemLayout1 child = (SwipeItemLayout1) mRecyclerView.getChildAt(i);
                         if(child.isExpand())
                             child.closePane();
                     }
