@@ -15,3 +15,5 @@
   3、click、long click点击效果以及listener
     将item里的child当作普通的view来对待即可。使用setOnClickListener以及setOnLongClickListener。至于显示效果，通常怎么设置，这里也怎么设置。
   
+效果图：
+	![Image text](https://raw.githubusercontent.com/fornana/swipeitemlayout/master/img/example.png)
