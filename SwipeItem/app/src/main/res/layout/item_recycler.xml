@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.nalan.swipeitem.recyclerview.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="75dp">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/bmp"
+            android:scaleType="fitXY"
+            android:src="@drawable/bmp_qq_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/stick"
+            android:text="置顶"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:background="@drawable/btn_stick"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/mark"
+            android:text="标记未读"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:background="@drawable/btn_mark"
+            android:layout_width="120dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/delete"
+            android:text="删除"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:background="@drawable/btn_delete"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</com.nalan.swipeitem.recyclerview.SwipeItemLayout>

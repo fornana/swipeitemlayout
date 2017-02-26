@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_recycler_view"
+        android:orderInCategory="100"
+        android:title="@string/demo_recycler_view"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_listview"
+        android:orderInCategory="100"
+        android:title="@string/demo_listview"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_expandable_listview"
+        android:orderInCategory="100"
+        android:title="@string/demo_expandable_listview"
+        app:showAsAction="never" />
+
+</menu>

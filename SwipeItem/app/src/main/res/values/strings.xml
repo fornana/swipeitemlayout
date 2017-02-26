@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SwipeItem</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="demo_recycler_view">Recycler view swipe demo</string>
+    <string name="demo_listview">ListView swipe demo</string>
+    <string name="demo_expandable_listview">ExpandableListView swipe demo</string>
+</resources>
