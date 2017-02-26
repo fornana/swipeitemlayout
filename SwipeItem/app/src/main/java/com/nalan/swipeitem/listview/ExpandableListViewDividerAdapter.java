@@ -102,15 +102,14 @@ public class ExpandableListViewDividerAdapter extends BaseExpandableListAdapter 
             return "";
     }
 
-    //id不能根据mMainAdapter来返回，index问题，可能导致重复
     @Override
     public long getGroupId(int groupPosition) {
-        return groupPosition;
+        return getCombinedGroupId(groupPosition);
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return childPosition;
+        return getCombinedChildId(groupPosition,childPosition);
     }
 
     @Override
