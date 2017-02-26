@@ -1,7 +1,7 @@
 # swipeitemlayout
-非常轻量级的RecyclerView左滑菜单选项控件。
+轻量级RecyclerView左滑实现，以及ExpandableListView、ListView的左滑实现
 
-使用很简单，只需要一个类文件即可。将SwipeItemLayout拷贝到项目下即可使用。
+RecyclerView左滑，不需要继承特地的adapter，不需要使用重写过的RecyclerView，只需要一个类即可。
 
 以QQ的左滑为参考设计的，与SwipeRefreshLayout无冲突。
 
@@ -15,5 +15,8 @@
   3、click、long click点击效果以及listener
     将item里的child当作普通的view来对待即可。使用setOnClickListener以及setOnLongClickListener。至于显示效果，通常怎么设置，这里也怎么设置。
   
-效果图：
-	![Image text](https://raw.githubusercontent.com/fornana/swipeitemlayout/master/img/example.png)
+RecyclerView与ListView左滑效果图：
+	![Image text](https://raw.githubusercontent.com/fornana/swipeitemlayout/master/img/example1.png)
+	
+ExpandableListView左滑效果图：	
+	![Image text](https://raw.githubusercontent.com/fornana/swipeitemlayout/master/img/example2.png)
