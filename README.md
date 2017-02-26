@@ -1,6 +1,10 @@
 # swipeitemlayout
 轻量级RecyclerView左滑实现，以及ExpandableListView、ListView的左滑实现
 
+RecyclerView左滑：http://www.jianshu.com/p/f2a9b860858e
+
+ExpandableListView、ListView左滑：http://www.jianshu.com/p/a00073b55f77
+
 RecyclerView左滑，不需要继承特地的adapter，不需要使用重写过的RecyclerView，只需要一个类即可。
 
 以QQ的左滑为参考设计的，与SwipeRefreshLayout无冲突。
@@ -17,6 +21,3 @@ RecyclerView左滑，不需要继承特地的adapter，不需要使用重写过�
   
 RecyclerView与ListView左滑效果图：
 	![Image text](https://raw.githubusercontent.com/fornana/swipeitemlayout/master/img/example1.png)
-	
-ExpandableListView左滑效果图：	
-	![Image text](https://raw.githubusercontent.com/fornana/swipeitemlayout/master/img/example2.png)
