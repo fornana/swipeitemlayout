@@ -31,6 +31,7 @@ public class SwipeItemLayout extends ViewGroup {
     private int mMaxScrollOffset;
 
     private boolean mInLayout;
+    private boolean mIsLaidOut;
 
     public SwipeItemLayout(Context context) {
         this(context,null);
@@ -211,6 +212,7 @@ public class SwipeItemLayout extends ViewGroup {
 
         //offsetChildrenLeftAndRight(mScrollOffset);
         mInLayout = false;
+        mIsLaidOut = true;
     }
 
     void offsetChildrenLeftAndRight(int delta){
@@ -246,10 +248,25 @@ public class SwipeItemLayout extends ViewGroup {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        if(mScrollOffset!=0 && mIsLaidOut){
+            offsetChildrenLeftAndRight(-mScrollOffset);
+            mScrollOffset = 0;
+        }else
+            mScrollOffset = 0;
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
 
-        mScrollOffset = 0;
+        if(mScrollOffset!=0 && mIsLaidOut){
+            offsetChildrenLeftAndRight(-mScrollOffset);
+            mScrollOffset = 0;
+        }else
+            mScrollOffset = 0;
         removeCallbacks(mScrollRunnable);
     }
 
