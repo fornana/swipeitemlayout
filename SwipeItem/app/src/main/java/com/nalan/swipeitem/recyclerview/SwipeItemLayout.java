@@ -148,39 +148,40 @@ public class SwipeItemLayout extends ViewGroup {
         if(!ensureChildren())
             throw new RuntimeException("SwipeItemLayout的子视图不符合规定");
 
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
-        if(widthMode != MeasureSpec.EXACTLY || heightMode != MeasureSpec.EXACTLY) {
-            /*
-                一般确实就是match_parent，但是，抛异常是否太粗暴，此处直接调用super方法，当然没任何意义
-                throw new IllegalArgumentException("SwipeItemLayout must be measured with MeasureSpec.EXACTLY.");
-             */
-            super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-        }
+        MarginLayoutParams lp = null;
+        int horizontalMargin,verticalMargin;
+        int horizontalPadding = getPaddingLeft()+getPaddingRight();
+        int verticalPadding = getPaddingTop()+getPaddingBottom();
+
+        lp = (MarginLayoutParams) mMainView.getLayoutParams();
+        horizontalMargin = lp.leftMargin+lp.rightMargin;
+        verticalMargin = lp.topMargin+lp.bottomMargin;
+        measureChildWithMargins(mMainView,
+                widthMeasureSpec,horizontalMargin+horizontalPadding,
+                heightMeasureSpec,verticalMargin+verticalPadding);
+
+        if(widthMode==MeasureSpec.AT_MOST)
+            widthSize = Math.min(widthSize,mMainView.getMeasuredWidth()+horizontalMargin+horizontalPadding);
+        else if(widthMode==MeasureSpec.UNSPECIFIED)
+            widthSize = mMainView.getMeasuredWidth()+horizontalMargin+horizontalPadding;
+
+        if(heightMode==MeasureSpec.AT_MOST)
+            heightSize = Math.min(heightSize,mMainView.getMeasuredHeight()+verticalMargin+verticalPadding);
+        else if(heightMode==MeasureSpec.UNSPECIFIED)
+            heightSize = mMainView.getMeasuredHeight()+verticalMargin+verticalPadding;
 
         setMeasuredDimension(widthSize,heightSize);
 
-        int childWidthSpec;
-        int childHeightSpec;
-        MarginLayoutParams lp;
-        int childWidth = widthSize-getPaddingLeft()-getPaddingRight();
-        int childHeight = heightSize-getPaddingTop()-getPaddingBottom();
-
-        //main layout占据真个layout frame
-        lp = (MarginLayoutParams) mMainView.getLayoutParams();
-        childWidthSpec = MeasureSpec.makeMeasureSpec(childWidth-lp.leftMargin-lp.rightMargin,MeasureSpec.EXACTLY);
-        childHeightSpec = MeasureSpec.makeMeasureSpec(childHeight-lp.topMargin-lp.bottomMargin,MeasureSpec.EXACTLY);
-        mMainView.measure(childWidthSpec,childHeightSpec);
-
         //side layout大小为自身实际大小
         lp = (MarginLayoutParams) mSideView.getLayoutParams();
-        childWidthSpec = MeasureSpec.makeMeasureSpec(0,MeasureSpec.UNSPECIFIED);
-        childHeightSpec = MeasureSpec.makeMeasureSpec(childHeight-lp.topMargin-lp.bottomMargin,MeasureSpec.EXACTLY);
-        mSideView.measure(childWidthSpec,childHeightSpec);
+        verticalMargin = lp.topMargin+lp.bottomMargin;
+        mSideView.measure(MeasureSpec.makeMeasureSpec(0,MeasureSpec.UNSPECIFIED),
+                MeasureSpec.makeMeasureSpec(getMeasuredHeight()-verticalMargin-verticalPadding,MeasureSpec.EXACTLY));
     }
 
     @Override

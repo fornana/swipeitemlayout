@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.nalan.swipeitem.listview.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/bmp"
             android:scaleType="center"
             android:src="@drawable/bmp_qq_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
