@@ -1,6 +1,42 @@
 # swipeitemlayout
 轻量级RecyclerView左滑实现，以及ExpandableListView、ListView的左滑实现
 
+最近项目有用到RecyclerView左滑，代码稍作修改。具体为SwipeItemLayout-2017-10-23.java。
+左滑+长按拖拽都可以不会冲突，先添加ItemTouchHelper做长按拖拽，再添加
+addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(this))即可。
+项目太赶没时间维护，有兴趣的朋友可以看看。
+
+
+使用方法稍有不同，具体如下：
+<SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+	
+	//main部分
+    <RelativeLayout
+        app:layout_itemType="main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+		
+	</RelativeLayout>
+	
+	//menu部分
+	<Button 
+		app:layout_itemType="menu`"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"/>
+	
+	<Button 
+		app:layout_itemType="menu`"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"/>
+	
+</SwipeItemLayout>
+	即指定layout_itemType即可，“main”只能是一个，“menu”可以多个。
+
+
+
 RecyclerView左滑：http://www.jianshu.com/p/f2a9b860858e
 
 ExpandableListView、ListView左滑：http://www.jianshu.com/p/a00073b55f77
