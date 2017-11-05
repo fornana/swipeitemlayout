@@ -369,9 +369,7 @@ public class SwipeItemLayout extends ViewGroup {
                 if(more && !atEdge) {
                     ViewCompat.postOnAnimation(SwipeItemLayout1.this, this);
                     return;
-                }
-
-                if(atEdge){
+                }else{
                     removeCallbacks(this);
                     if(!scroller.isFinished())
                         scroller.abortAnimation();
